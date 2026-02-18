@@ -90,18 +90,40 @@ Homeowners and community presidents can govern their community transparently —
 - **ADMINIA Integration**: Webhook events + REST API only — no shared database, no direct DB access from ADMINIA
 - **Quota math**: Quotas MUST sum to exactly 100.00% — enforced at DB level AND application level; system blocks any publish action if invariant is violated
 - **Governance hard constraints**: Meeting-locked votes enforce time windows; over-threshold payments cannot bypass vote; one Owner Code per unit; one support per unit per idea
-- **Tech stack**: To be determined during research phase (stack chosen must support: complex relational data model, real-time notifications, file storage, audit logging, webhook emission)
+- **Tech stack**: Turborepo monorepo — `apps/web` (Next.js 15), `apps/api` (Hono 4), `packages/db` (Drizzle + PostgreSQL), BullMQ + Redis for job queue
 - **Web-first**: Must work on mobile browser without native app
+- **Decimal precision**: All quota/financial arithmetic via `decimal.js`; stored as PostgreSQL `NUMERIC` — never JavaScript floats
+
+## Current Milestone: v1.0 Foundation
+
+**Goal:** Deliver the full HOMP 2.0 platform — all 12 modules, polished UI, complete governance lifecycle, ADMINIA integration hooks, and rich seed data — deployed to Railway.
+
+**Target features:**
+- Monorepo infrastructure (Turborepo + Next.js 15 + Hono API + PostgreSQL + Redis)
+- Community model: 100 units, 5 blocks, quota math, roles, Owner Code binding
+- All 12 modules: Dashboard, Finance, Ideas, Votes, Projects, Meetings, Calendar, Community, Messages, Notifications, Documents, Settings
+- Complete governance lifecycle: Ideas → Votes → Projects enforced at system level
+- Finance approval workflow with configurable thresholds
+- ADMINIA integration: BullMQ webhooks + REST API + chat placeholder
+- Polished UI with shadcn/ui, sidebar nav, role-based views
+- Rich seed dataset (100 units, real topics, 11 recurring services)
+- Railway deployment with Docker Compose for local dev
 
 ## Key Decisions
 
 | Decision | Rationale | Outcome |
 |----------|-----------|---------|
-| ADMINIA via webhook + REST API | Loose coupling; ADMINIA evolves independently; no shared DB risk | — Pending |
-| Tech stack via research | Domain complexity warrants research before committing | — Pending |
-| YOLO execution mode | User confidence in direction; speed priority | — Pending |
-| Standard planning depth | 12 modules is large but well-specified; standard balances speed and coverage | — Pending |
-| Quality AI models | Higher accuracy for finance/governance logic planning | — Pending |
+| ADMINIA via webhook + REST API | Loose coupling; ADMINIA evolves independently; no shared DB risk | ✓ Confirmed |
+| Turborepo monorepo: Next.js 15 + Hono | Persistent server needed for BullMQ + SSE; Next.js API routes insufficient | ✓ Confirmed |
+| PostgreSQL + Drizzle ORM | NUMERIC type for exact quota/finance math; Drizzle avoids float casting | ✓ Confirmed |
+| BullMQ + Redis for webhooks | Reliable delivery with retry/backoff to ADMINIA; no fire-and-forget | ✓ Confirmed |
+| better-auth for auth | Multi-role sessions; Owner Code binding; works across Hono + Next.js | ✓ Confirmed |
+| Railway for deployment | Easiest cloud target for this stack; Git-based deploys | ✓ Confirmed |
+| Email + password + Owner Code | Self-service unit binding; secure identity without admin overhead | ✓ Confirmed |
+| English UI only | Community can add i18n later; no added complexity in v1.0 | ✓ Confirmed |
+| Polished UI from day one | Ship shippable quality throughout; shadcn/ui enables this without extra cost | ✓ Confirmed |
+| YOLO execution mode | User confidence in direction; speed priority | ✓ Confirmed |
+| Quality AI models | Higher accuracy for finance/governance logic planning | ✓ Confirmed |
 
 ---
-*Last updated: 2026-02-17 after initialization*
+*Last updated: 2026-02-18 after v1.0 milestone initialization*
