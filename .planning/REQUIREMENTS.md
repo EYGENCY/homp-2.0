@@ -323,17 +323,193 @@
 
 ## Traceability
 
-*Populated by roadmapper agent.*
+*Populated by roadmapper — 2026-02-18*
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| (to be filled) | — | — |
+| INFRA-01 | Phase 1 | Pending |
+| INFRA-02 | Phase 1 | Pending |
+| INFRA-03 | Phase 1 | Pending |
+| INFRA-04 | Phase 1 | Pending |
+| INFRA-05 | Phase 1 | Pending |
+| AUTH-01 | Phase 2 | Pending |
+| AUTH-02 | Phase 2 | Pending |
+| AUTH-03 | Phase 2 | Pending |
+| AUTH-04 | Phase 2 | Pending |
+| AUTH-05 | Phase 2 | Pending |
+| AUTH-06 | Phase 2 | Pending |
+| AUTH-07 | Phase 2 | Pending |
+| COMM-01 | Phase 2 | Pending |
+| COMM-02 | Phase 2 | Pending |
+| COMM-03 | Phase 2 | Pending |
+| COMM-04 | Phase 2 | Pending |
+| COMM-05 | Phase 2 | Pending |
+| COMM-06 | Phase 2 | Pending |
+| COMM-07 | Phase 2 | Pending |
+| COMM-08 | Phase 2 | Pending |
+| COMM-09 | Phase 2 | Pending |
+| COMM-10 | Phase 2 | Pending |
+| ONBOARD-01 | Phase 3 | Pending |
+| ONBOARD-02 | Phase 3 | Pending |
+| ONBOARD-03 | Phase 3 | Pending |
+| ONBOARD-04 | Phase 3 | Pending |
+| ONBOARD-05 | Phase 3 | Pending |
+| ONBOARD-06 | Phase 3 | Pending |
+| ONBOARD-07 | Phase 3 | Pending |
+| SETT-GOV-01 | Phase 3 | Pending |
+| SETT-GOV-02 | Phase 3 | Pending |
+| SETT-GOV-03 | Phase 3 | Pending |
+| SETT-GOV-04 | Phase 3 | Pending |
+| SETT-GOV-05 | Phase 3 | Pending |
+| SETT-GOV-06 | Phase 3 | Pending |
+| SETT-GOV-07 | Phase 3 | Pending |
+| SETT-GOV-08 | Phase 3 | Pending |
+| SETT-FIN-01 | Phase 3 | Pending |
+| SETT-FIN-02 | Phase 3 | Pending |
+| SETT-FIN-03 | Phase 3 | Pending |
+| SETT-FIN-04 | Phase 3 | Pending |
+| SETT-FIN-05 | Phase 3 | Pending |
+| SETT-FIN-06 | Phase 3 | Pending |
+| SETT-FIN-07 | Phase 3 | Pending |
+| SETT-FIN-08 | Phase 3 | Pending |
+| SETT-PROC-01 | Phase 3 | Pending |
+| SETT-PROC-02 | Phase 3 | Pending |
+| SETT-PROC-03 | Phase 3 | Pending |
+| SETT-PROC-04 | Phase 3 | Pending |
+| SETT-PROC-05 | Phase 3 | Pending |
+| SETT-PROC-06 | Phase 3 | Pending |
+| SETT-INC-01 | Phase 3 | Pending |
+| SETT-INC-02 | Phase 3 | Pending |
+| SETT-INC-03 | Phase 3 | Pending |
+| SETT-INC-04 | Phase 3 | Pending |
+| SETT-TRANS-01 | Phase 3 | Pending |
+| SETT-TRANS-02 | Phase 3 | Pending |
+| SETT-TRANS-03 | Phase 3 | Pending |
+| SETT-ROLE-01 | Phase 3 | Pending |
+| SETT-ROLE-02 | Phase 3 | Pending |
+| SETT-ROLE-03 | Phase 3 | Pending |
+| SETT-DOC-01 | Phase 3 | Pending |
+| SETT-DOC-02 | Phase 3 | Pending |
+| SETT-DOC-03 | Phase 3 | Pending |
+| SETT-CONF-01 | Phase 3 | Pending |
+| SETT-CONF-02 | Phase 3 | Pending |
+| SETT-CONF-03 | Phase 3 | Pending |
+| SETT-AI-01 | Phase 3 | Pending |
+| SETT-AI-02 | Phase 3 | Pending |
+| SETT-META-01 | Phase 3 | Pending |
+| SETT-META-02 | Phase 3 | Pending |
+| SETT-META-03 | Phase 3 | Pending |
+| DASH-01 | Phase 4 | Pending |
+| DASH-02 | Phase 4 | Pending |
+| DASH-03 | Phase 4 | Pending |
+| FIN-01 | Phase 5 | Pending |
+| FIN-02 | Phase 5 | Pending |
+| FIN-03 | Phase 5 | Pending |
+| FIN-04 | Phase 5 | Pending |
+| FIN-05 | Phase 5 | Pending |
+| FIN-06 | Phase 5 | Pending |
+| FIN-07 | Phase 5 | Pending |
+| FIN-08 | Phase 5 | Pending |
+| FIN-09 | Phase 5 | Pending |
+| FIN-10 | Phase 5 | Pending |
+| FIN-11 | Phase 5 | Pending |
+| IDEA-01 | Phase 6 | Pending |
+| IDEA-02 | Phase 6 | Pending |
+| IDEA-03 | Phase 6 | Pending |
+| IDEA-04 | Phase 6 | Pending |
+| IDEA-05 | Phase 6 | Pending |
+| IDEA-06 | Phase 6 | Pending |
+| IDEA-07 | Phase 6 | Pending |
+| OFFR-01 | Phase 7 | Pending |
+| OFFR-02 | Phase 7 | Pending |
+| OFFR-03 | Phase 7 | Pending |
+| OFFR-04 | Phase 7 | Pending |
+| OFFR-05 | Phase 7 | Pending |
+| OFFR-06 | Phase 7 | Pending |
+| OFFR-07 | Phase 7 | Pending |
+| OFFR-08 | Phase 7 | Pending |
+| VOTE-01 | Phase 8 | Pending |
+| VOTE-02 | Phase 8 | Pending |
+| VOTE-03 | Phase 8 | Pending |
+| VOTE-04 | Phase 8 | Pending |
+| VOTE-05 | Phase 8 | Pending |
+| VOTE-06 | Phase 8 | Pending |
+| VOTE-07 | Phase 8 | Pending |
+| VOTE-08 | Phase 8 | Pending |
+| VOTE-09 | Phase 8 | Pending |
+| PROJ-01 | Phase 9 | Pending |
+| PROJ-02 | Phase 9 | Pending |
+| PROJ-03 | Phase 9 | Pending |
+| PROJ-04 | Phase 9 | Pending |
+| PROJ-05 | Phase 9 | Pending |
+| PROJ-06 | Phase 9 | Pending |
+| PROJ-07 | Phase 9 | Pending |
+| PROJ-08 | Phase 9 | Pending |
+| PROJ-09 | Phase 9 | Pending |
+| INCID-01 | Phase 10 | Pending |
+| INCID-02 | Phase 10 | Pending |
+| INCID-03 | Phase 10 | Pending |
+| INCID-04 | Phase 10 | Pending |
+| INCID-05 | Phase 10 | Pending |
+| INCID-06 | Phase 10 | Pending |
+| MEET-01 | Phase 11 | Pending |
+| MEET-02 | Phase 11 | Pending |
+| MEET-03 | Phase 11 | Pending |
+| MEET-04 | Phase 11 | Pending |
+| MEET-05 | Phase 11 | Pending |
+| MEET-06 | Phase 11 | Pending |
+| CAL-01 | Phase 11 | Pending |
+| CAL-02 | Phase 11 | Pending |
+| CAL-03 | Phase 11 | Pending |
+| CAL-04 | Phase 11 | Pending |
+| DIR-01 | Phase 11 | Pending |
+| DIR-02 | Phase 11 | Pending |
+| DIR-03 | Phase 11 | Pending |
+| DIR-04 | Phase 11 | Pending |
+| DIR-05 | Phase 11 | Pending |
+| DIR-06 | Phase 11 | Pending |
+| DIR-07 | Phase 11 | Pending |
+| DIR-08 | Phase 11 | Pending |
+| DOC-01 | Phase 11 | Pending |
+| DOC-02 | Phase 11 | Pending |
+| DOC-03 | Phase 11 | Pending |
+| DOC-04 | Phase 11 | Pending |
+| DOC-05 | Phase 11 | Pending |
+| DOC-06 | Phase 11 | Pending |
+| MSG-01 | Phase 12 | Pending |
+| MSG-02 | Phase 12 | Pending |
+| MSG-03 | Phase 12 | Pending |
+| MSG-04 | Phase 12 | Pending |
+| MSG-05 | Phase 12 | Pending |
+| MSG-06 | Phase 12 | Pending |
+| NOTIF-01 | Phase 12 | Pending |
+| NOTIF-02 | Phase 12 | Pending |
+| NOTIF-03 | Phase 12 | Pending |
+| NOTIF-04 | Phase 12 | Pending |
+| NOTIF-05 | Phase 12 | Pending |
+| ADMI-01 | Phase 13 | Pending |
+| ADMI-02 | Phase 13 | Pending |
+| ADMI-03 | Phase 13 | Pending |
+| ADMI-04 | Phase 13 | Pending |
+| ADMI-05 | Phase 13 | Pending |
+| ADMI-06 | Phase 13 | Pending |
+| ADMI-07 | Phase 13 | Pending |
+| SEED-01 | Phase 13 | Pending |
+| SEED-02 | Phase 13 | Pending |
+| SEED-03 | Phase 13 | Pending |
+| SEED-04 | Phase 13 | Pending |
+| SEED-05 | Phase 13 | Pending |
+| SEED-06 | Phase 13 | Pending |
+| SEED-07 | Phase 13 | Pending |
+| SEED-08 | Phase 13 | Pending |
+| SEED-09 | Phase 13 | Pending |
+| SEED-10 | Phase 13 | Pending |
 
 **Coverage:**
-- v1.0 requirements: ~110 total
-- Mapped to phases: 0
-- Unmapped: ~110 ⚠️
+- v1.0 requirements: 187 total
+- Mapped to phases: 187
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-02-18*
-*Last updated: 2026-02-18 — enriched with settings framework, onboarding, offer collection, incidents*
+*Last updated: 2026-02-18 — traceability populated by roadmapper; 187 requirements mapped across 13 phases*
