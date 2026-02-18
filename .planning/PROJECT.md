@@ -2,11 +2,11 @@
 
 ## What This Is
 
-HOMP 2.0 is a web-first, mobile-friendly community management platform for homeowner associations. It enables structured governance, transparent finance, and democratic decision-making (Ideas → Votes → Projects lifecycle) for residential communities. It succeeds the original HOMP project and is designed to integrate with ADMINIA, a future AI chatbot and background automation agent, via webhook events and a REST API.
+HOMP 2.0 is a multi-tenant, web-first community management platform for homeowner associations. It serves thousands of communities — each with its own configurable governance constitution, financial rules, and permission model. It enables structured governance, transparent finance, and democratic decision-making (Ideas → Offers → Votes → Projects lifecycle) for residential communities. It integrates with ADMINIA, a future AI chatbot and automation agent, via webhook events and a REST API.
 
 ## Core Value
 
-Homeowners and community presidents can govern their community transparently — from raising ideas to approving budgets to tracking projects — with every action logged, every vote counted by quota, and every euro traceable.
+Homeowners and community presidents can govern their community transparently — from raising ideas to collecting vendor offers to approving budgets to tracking projects — with every action logged, every vote counted by quota, and every euro traceable. The Settings engine is the constitutional brain: it defines who can do what, when a vote is required, and what AI is allowed to do autonomously.
 
 ## Requirements
 
@@ -16,114 +16,136 @@ Homeowners and community presidents can govern their community transparently —
 
 ### Active
 
-**Community Model**
-- [ ] 100-unit community with 5 blocks × 20 units, each block having 2 buildings with exact floor geometry (3 ground + 3 first + 3 second + 1 penthouse per building)
-- [ ] Participation quotas stored per unit, ranging 0.5%–1.5%, enforced to sum exactly 100.00%
-- [ ] Audit trail for all quota changes; system blocks publish if total ≠ 100.00%
-- [ ] One Owner Code per unit (secure identity binding)
-- [ ] Occupancy tracking: owner-occupied, tenant-linked (20 units), absent owners (2 units)
-- [ ] Roles: Owner, Owner-President (Block or Community), Tenant, Service Provider
+**Platform Model**
+- [ ] Multi-tenant: each community is a fully isolated entity (community_id context); one HOMP instance serves many communities
+- [ ] Community onboarding wizard: any person can create a new community, define its structure, upload its constitution, configure minimum governance settings, and generate Owner Codes
+- [ ] Roles: Owner, Owner-President (Block or Community), Tenant, Service Provider, Community Admin (platform-level)
 
-**Modules**
-- [ ] Dashboard (owner view + president view with approval queue)
-- [ ] Finance module (ledger, approval workflow, community + personal views, annual forecast)
-- [ ] Ideas module (create, support with 1 vote per unit, configurable threshold + time window)
-- [ ] Votes module (async, in-meeting, meeting-locked types; quota-weighted by default)
-- [ ] Projects module (created only from approved votes; idea → vote → project chain)
-- [ ] Meetings module (upcoming with RSVP choices, past with minutes/transcript/action items)
-- [ ] Calendar (meetings, vote windows, milestones, vendor appointments, approval deadlines)
-- [ ] Community directory (role-controlled contact visibility)
-- [ ] Messages module (direct messaging between users)
-- [ ] Notifications module (in-app + configurable channels)
-- [ ] Documents module (constitution, plans, contracts, minutes, claims — linkable to objects)
-- [ ] Settings engine (vote weighting, approval thresholds, quorum, meeting cadence — versioned + audited)
+**Community Structure**
+- [ ] 10 blocks × 10 units per block = 100 units total per seeded community
+- [ ] Floor geometry per block: Floor 0 = 3 units (A, B, C), Floor 1 = 3 units (A, B, C), Floor 2 = 3 units (A, B, C), Floor 3 (penthouse) = 1 unit (A only)
+- [ ] Unit naming convention: `{block}-{floor}{unit}` — e.g., Block 1 penthouse = `1-3A`
+- [ ] Participation quotas stored as `NUMERIC(6,4)` per unit; all quotas sum exactly to 100.0000%
+- [ ] System blocks any action requiring quota validation if sum ≠ 100.0000% (DB constraint + application layer)
+- [ ] Audit trail for all quota changes
+- [ ] One Owner Code per unit; each code used exactly once to bind an account to a unit
+- [ ] Occupancy tracking: owner-occupied, tenant-linked, absent owner
 
-**Finance Logic**
-- [ ] Finance approval workflow: Draft → Submitted → ApprovalRequired → Approved/Rejected → Scheduled → Paid → Archived
-- [ ] Configurable approval thresholds (e.g., ≤€1,000 president approval; >€1,000 community vote)
-- [ ] Hard constraint: over-threshold payments cannot bypass vote (emergency flag requires later ratification)
-- [ ] Ledger entries include: vendor, category, amount, date, invoice, status, decision type
+**Governance Lifecycle (Ideas → Offers → Votes → Projects)**
+- [ ] Ideas module: submit ideas, support with 1 vote per unit, configurable threshold + time window
+- [ ] Offer Collection phase: after threshold reached, minimum N vendor offers required before voting opens (configurable per community)
+- [ ] Each offer includes: vendor, description, budget, timeline, images, documents, warranty terms, insurance proof
+- [ ] Votes module: owners vote for/against concept AND select preferred offer, or propose an alternative solution during voting
+- [ ] Vote types: async, in-meeting, meeting-locked — all enforced server-side via BullMQ
+- [ ] Projects module: created only from passed votes; displays full chain (idea → offers → vote → vendor → contract → budget → timeline)
+- [ ] Projects: vendor orchestration, milestone-gated payments, change requests, progress photos
 
-**Governance Lifecycle**
-- [ ] Ideas → Votes → Projects lifecycle enforced at system level
-- [ ] Meeting-locked votes: visible pre-meeting, unlock at meeting start, close at meeting end
-- [ ] Projects created only from approved votes, displaying full chain (idea → vote → vendor → contract → budget → timeline)
-- [ ] Change requests tracked per project
+**Finance Module**
+- [ ] Ledger with approval workflow: Draft → Submitted → ApprovalRequired → Approved/Rejected → Scheduled → Paid → Archived
+- [ ] Configurable approval thresholds per community (president-alone vs community vote)
+- [ ] Emergency flag for over-threshold payments; requires post-fact ratification vote
+- [ ] Milestone-gated vendor payments: payment releases only after milestone confirmation
+- [ ] Community view (all transactions) + Personal view (owner's quota share)
+- [ ] Annual budget performance chart, KPI cards, CSV export
 
-**ADMINIA Integration**
-- [ ] Webhook event emission for: IdeaCreated, SupportThresholdReached, VoteOpened, VoteLocked, VoteClosed, ProjectCreated, InvoiceSubmitted, ApprovalRequired, MeetingScheduled, MinutesPublished
-- [ ] REST API for ADMINIA to query HOMP data
-- [ ] ADMINIA may draft but never publish; no AI action can finalize payments, votes, or role changes
-- [ ] ADMINIA chat placeholder in UI (bottom-right)
+**Incidents & Emergencies**
+- [ ] Any owner can create an incident: category (emergency/urgent/routine/cosmetic), description, photos
+- [ ] System SLA classification per incident type (response time, escalation timeline, auto-notifications) — configurable per community
+- [ ] President can authorize emergency contractor dispatch within emergency spending limit (no pre-vote required)
+- [ ] Emergency actions require post-fact ratification vote; audit logged
 
-**Sample Dataset**
-- [ ] 100 seeded units with correct floor distribution and quotas summing to 100.00%
-- [ ] 20 tenant-linked units, 2 absent owners seeded
+**Settings Engine (Constitutional Brain)**
+- [ ] All governance settings are per-community, versioned, and audited
+- [ ] Governance & power structure: president spending limit, board spending limit, mandatory vote triggers, emergency definition
+- [ ] Voting thresholds per decision category (10 categories), each defining majority type, weighting, quorum, time window
+- [ ] Initiative flow rules: upvote threshold, ADMINIA auto-promote toggle, president bypass toggle, offer requirements
+- [ ] Financial settings: budget structure, reserve fund target, contribution logic, payment rules, late fees, arrears visibility
+- [ ] Payment execution: dual signature, ADMINIA auto-pay limit, milestone-gated payment toggle
+- [ ] Procurement: min offers required, offer validity, comparison sheet, documentation requirements
+- [ ] Incident & emergency: classification rules, SLAs, emergency spend limit, post-fact vote requirement
+- [ ] Transparency: financial visibility level, voting anonymity, post-vote breakdown
+- [ ] Role permissions: configurable per role (president powers, owner rights, admin scope)
+- [ ] Document & data: retention policy, version tracking, mandatory upload triggers, legal export format
+- [ ] Communication: notification channels, reminder intervals, discussion rules
+- [ ] Conflict escalation: escalation ladder, legal action trigger conditions
+- [ ] Sub-community logic: block-level voting, special-interest group voting (garage owners, pool users)
+- [ ] AI/ADMINIA authority: advisory-only, can auto-classify incidents, can auto-promote ideas, can auto-trigger votes, can auto-pay within limit
+- [ ] Meta-settings: majority required to change settings, activation delay, forward-only application
+
+**Supporting Modules**
+- [ ] Dashboard: owner view + president approval queue + next action prompts
+- [ ] Meetings: RSVP (online/in-person/proxy), agenda with inline votes, past meetings with minutes/transcripts/action items
+- [ ] Calendar: color-coded by type (meetings/votes/payments/projects), filters, iCal export
+- [ ] Community directory: searchable, privacy controls, official documents panel, board members
+- [ ] Messages: direct messages, group threads, ADMINIA AI conversation thread
+- [ ] Notifications: in-app + email, configurable per channel, escalation reminders
+- [ ] Documents: categorized uploads, linked to community objects, role-controlled visibility, object storage
+- [ ] ADMINIA integration: BullMQ webhooks (10 events + new events), REST API, chat placeholder FAB
+
+**Sample Dataset (first seeded community)**
+- [ ] 100 units with correct block/floor/unit distribution; quotas sum exactly to 100.0000%
+- [ ] 20 tenant-linked units, 2 absent owners
+- [ ] Seeded governance settings (realistic defaults)
 - [ ] 8 ideas, 4 votes (1 meeting-locked), 3 projects (active/upcoming/completed)
-- [ ] 1 annual meeting + 2 extraordinary meetings, fully linked calendar
-- [ ] 11 recurring monthly services + pool operational costs in financial dataset
-- [ ] Real topics seeded: Pergolas/toldos, Persianas regulation, Community Wi-Fi, Entrance door malfunction, Garage door malfunction (vendor bankrupt), Claims tracking (Aedas & Bertolini)
+- [ ] 1 annual meeting + 2 extraordinary meetings, linked to calendar
+- [ ] 11 recurring monthly services + pool operational costs
+- [ ] Real topics: Pergolas/toldos, Persianas regulation, Community Wi-Fi, Entrance door malfunction, Garage door malfunction (vendor bankrupt), Claims tracking (Aedas & Bertolini)
 
 **Audit & Security**
-- [ ] All actions logged to immutable audit log
-- [ ] Permission matrix enforced: only owners vote, only presidents approve payments, tenants cannot view full financial breakdown, service providers see only assigned work
-- [ ] Permission denials define system behavior (no silent failures)
+- [ ] All actions logged to immutable audit log (actor, action, timestamp, object, before/after state)
+- [ ] Permission matrix enforced: only owners vote, only presidents approve payments within their limit, tenants cannot view full financial breakdown, service providers see only assigned work
+- [ ] Permission denials logged; no silent failures
 
 ### Out of Scope
 
-- ADMINIA AI design — only define integration hooks and event contracts
+- ADMINIA AI design and logic — HOMP defines event contracts and REST API surface only
 - Legal/regulatory compliance advice — no legal claims in any module
 - Mobile native apps — web-first (mobile-responsive); native app is v2+
-- Blockchain verification — screenshots showed it, explicitly excluded; standard ACID DB is sufficient
-- Video conferencing — meeting participation online uses external link (Zoom/Teams), not built-in
+- Blockchain verification — explicitly excluded; standard ACID DB + immutable audit log is sufficient
+- Video conferencing — meeting participation uses external link (Zoom/Teams), not built-in
+- SMS notifications — email + in-app for v1.0; SMS is v2+
+- Signed PDF auto-generation — document export in v2+
+- External lawyer integrations — escalation is tracked in HOMP; legal execution is external
 
 ## Context
 
-- **Successor project**: HOMP 2.0 succeeds the original HOMP project. Any prior codebase is NOT being migrated — this is a greenfield build with the same domain knowledge.
-- **Community geometry**: Exact structure matters — all financial math, quota distribution, and voting weight calculations derive from block/building/floor/unit hierarchy.
-- **ADMINIA awareness**: ADMINIA is a separate system. HOMP exposes hooks; ADMINIA consumes them. No AI logic lives in HOMP.
-- **UI reference**: Screenshots provided show a clean, professional governance UI with sidebar nav, global search, and ADMINIA chat placeholder bottom-right. Design target is similar.
-- **Recurring services**: 11 monthly services (cleaning, gardening, pool maintenance, elevator maintenance, electricity common areas, security checks, pest control, waste, insurance, administration, paddle court maintenance) plus pool operational costs are assumed budget items.
+- **Multi-tenant from day one**: Architecture must support multiple communities. All queries are community-scoped. The first seeded community is the reference implementation.
+- **Governance lifecycle enriched**: The lifecycle is Ideas → Offer Collection → Votes (with offer selection) → Projects. The offer collection phase is a procurement discipline layer — communities that skip it (configurable) go directly from idea to vote.
+- **Settings as constitution**: The Settings engine is the backbone of HOMP. Every governance behavior is configurable. ADMINIA reads community settings to understand what it's allowed to do. Well-designed defaults matter — communities should feel guided, not overwhelmed.
+- **Community geometry**: 10 blocks × 10 units. Unit naming: `{block}-{floor}{unit}`. Quotas are participation coefficients — the seeded penthouse (1-3A) has 1.5% quota (110 sqm).
+- **ADMINIA awareness**: ADMINIA is a separate system. HOMP exposes hooks and a REST API; ADMINIA consumes them. The AI authority level settings in HOMP define exactly what ADMINIA is allowed to do per community.
+- **UI reference**: 10 reference screenshots captured in `.planning/research/UI.md`. Target: clean professional governance UI, sidebar nav, shadcn/ui components, ADMINIA FAB bottom-right.
+- **Recurring services**: 11 monthly services (cleaning, gardening, pool maintenance, elevator maintenance, electricity common areas, security, pest control, waste, insurance, administration, paddle court) plus pool operational costs.
 
 ## Constraints
 
+- **Multi-tenant isolation**: All data is community-scoped; no cross-community data leakage
 - **ADMINIA Integration**: Webhook events + REST API only — no shared database, no direct DB access from ADMINIA
-- **Quota math**: Quotas MUST sum to exactly 100.00% — enforced at DB level AND application level; system blocks any publish action if invariant is violated
-- **Governance hard constraints**: Meeting-locked votes enforce time windows; over-threshold payments cannot bypass vote; one Owner Code per unit; one support per unit per idea
-- **Tech stack**: Turborepo monorepo — `apps/web` (Next.js 15), `apps/api` (Hono 4), `packages/db` (Drizzle + PostgreSQL), BullMQ + Redis for job queue
+- **Quota math**: Quotas MUST sum to exactly 100.0000% — enforced at DB level (check constraint) AND application layer; system blocks any quota-dependent action if invariant violated
+- **Governance hard constraints**: Meeting-locked votes enforce time windows server-side (BullMQ, not frontend timers); over-threshold payments cannot bypass vote; one Owner Code per unit; one support per unit per idea; minimum offers required before vote (configurable)
+- **Tech stack**: Turborepo monorepo — `apps/web` (Next.js 15), `apps/api` (Hono 4), `packages/db` (Drizzle + PostgreSQL 16), BullMQ + Redis for job queue
 - **Web-first**: Must work on mobile browser without native app
 - **Decimal precision**: All quota/financial arithmetic via `decimal.js`; stored as PostgreSQL `NUMERIC` — never JavaScript floats
-
-## Current Milestone: v1.0 Foundation
-
-**Goal:** Deliver the full HOMP 2.0 platform — all 12 modules, polished UI, complete governance lifecycle, ADMINIA integration hooks, and rich seed data — deployed to Railway.
-
-**Target features:**
-- Monorepo infrastructure (Turborepo + Next.js 15 + Hono API + PostgreSQL + Redis)
-- Community model: 100 units, 5 blocks, quota math, roles, Owner Code binding
-- All 12 modules: Dashboard, Finance, Ideas, Votes, Projects, Meetings, Calendar, Community, Messages, Notifications, Documents, Settings
-- Complete governance lifecycle: Ideas → Votes → Projects enforced at system level
-- Finance approval workflow with configurable thresholds
-- ADMINIA integration: BullMQ webhooks + REST API + chat placeholder
-- Polished UI with shadcn/ui, sidebar nav, role-based views
-- Rich seed dataset (100 units, real topics, 11 recurring services)
-- Railway deployment with Docker Compose for local dev
 
 ## Key Decisions
 
 | Decision | Rationale | Outcome |
 |----------|-----------|---------|
+| Multi-tenant architecture | HOMP serves thousands of communities; community_id scoping from day one prevents painful migration later | ✓ Confirmed |
+| Ideas → Offers → Votes → Projects lifecycle | Procurement discipline: minimum vendor offers before voting prevents uninformed decisions | ✓ Confirmed |
+| Settings as constitutional brain | Every governance behavior is configurable per community; defaults guide without overwhelming | ✓ Confirmed |
+| Unit naming: {block}-{floor}{unit} | Unambiguous, human-readable, reflects physical structure | ✓ Confirmed |
 | ADMINIA via webhook + REST API | Loose coupling; ADMINIA evolves independently; no shared DB risk | ✓ Confirmed |
 | Turborepo monorepo: Next.js 15 + Hono | Persistent server needed for BullMQ + SSE; Next.js API routes insufficient | ✓ Confirmed |
 | PostgreSQL + Drizzle ORM | NUMERIC type for exact quota/finance math; Drizzle avoids float casting | ✓ Confirmed |
-| BullMQ + Redis for webhooks | Reliable delivery with retry/backoff to ADMINIA; no fire-and-forget | ✓ Confirmed |
+| BullMQ + Redis for webhooks + scheduled jobs | Reliable delivery + server-side vote window enforcement | ✓ Confirmed |
 | better-auth for auth | Multi-role sessions; Owner Code binding; works across Hono + Next.js | ✓ Confirmed |
 | Railway for deployment | Easiest cloud target for this stack; Git-based deploys | ✓ Confirmed |
 | Email + password + Owner Code | Self-service unit binding; secure identity without admin overhead | ✓ Confirmed |
-| English UI only | Community can add i18n later; no added complexity in v1.0 | ✓ Confirmed |
-| Polished UI from day one | Ship shippable quality throughout; shadcn/ui enables this without extra cost | ✓ Confirmed |
+| English UI only | i18n can be added in v2; no added complexity in v1.0 | ✓ Confirmed |
+| Polished UI from day one | shadcn/ui enables shippable quality without a separate design phase | ✓ Confirmed |
 | YOLO execution mode | User confidence in direction; speed priority | ✓ Confirmed |
 | Quality AI models | Higher accuracy for finance/governance logic planning | ✓ Confirmed |
 
 ---
-*Last updated: 2026-02-18 after v1.0 milestone initialization*
+*Last updated: 2026-02-18 after enriched governance model + settings framework added*
