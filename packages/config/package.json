@@ -7,8 +7,11 @@
     "./client": "./src/client.ts"
   },
   "dependencies": {
-    "zod": "^4.3.6",
     "@t3-oss/env-core": "^0.13.10",
-    "@t3-oss/env-nextjs": "^0.13.10"
+    "@t3-oss/env-nextjs": "^0.13.10",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@types/node": "^25.3.0"
   }
 }

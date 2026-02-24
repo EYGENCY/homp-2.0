@@ -17,5 +17,4 @@ export const serverEnv = createEnv({
     S3_REGION: z.string().default("us-east-1"),
   },
   runtimeEnv: process.env,
-  emitErrors: true,
 });
