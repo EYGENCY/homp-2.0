@@ -10,24 +10,24 @@ See: .planning/PROJECT.md (updated 2026-02-18)
 ## Current Position
 
 Phase: 1 of 13 (Infrastructure & Monorepo)
-Plan: 4 of 5 in current phase
+Plan: 5 of 5 in current phase
 Status: Executing Phase 1
-Last activity: 2026-02-24 — Completed 01-03: Hono /health endpoint + Next.js env wiring
+Last activity: 2026-02-24 — Completed 01-04: Railway deployment config (railway.toml files)
 
-Progress: [██░░░░░░░░] 18%
+Progress: [███░░░░░░░] 21%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 3
-- Average duration: 19min
-- Total execution time: 56min
+- Total plans completed: 4
+- Average duration: 15min
+- Total execution time: 59min
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| 01-infrastructure-and-monorepo | 3/5 | 56min | 19min |
+| 01-infrastructure-and-monorepo | 4/5 | 59min | 15min |
 
 *Updated after each plan completion*
 
@@ -49,6 +49,8 @@ Key decisions affecting all phases:
 - globalPassThroughEnv in turbo.json for all 10 env vars — secrets flow without polluting Turbo cache hash
 - ioredis { Redis } named export required under NodeNext module resolution (default import has no construct signatures)
 - apps/api startup DB check exits code 1 with clear error before accepting traffic — no silent failures
+- Railway: Railpack builder, no rootDirectory (repo root build), preDeployCommand runs drizzle migrate before each API deploy
+- Railway: Variable references ${{Postgres.DATABASE_URL}} and ${{Redis.REDIS_URL}} for credentials — no hardcoded values
 
 ### Key Constraints
 
@@ -68,5 +70,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-24
-Stopped at: Completed 01-03-PLAN.md — Hono /health endpoint + Next.js build-time env validation
+Stopped at: Completed 01-04-PLAN.md — Railway deployment config (railway.toml for API and web)
 Resume file: None

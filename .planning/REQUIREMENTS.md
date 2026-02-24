@@ -12,7 +12,7 @@
 - [ ] **INFRA-01**: Developer can start the full local stack (PostgreSQL, Redis, MinIO) with a single `docker compose up`
 - [x] **INFRA-02**: Developer can run the Next.js web app and Hono API server concurrently via `pnpm dev` from monorepo root
 - [x] **INFRA-03**: Database migrations run via Drizzle Kit; schema is versioned and repeatable
-- [ ] **INFRA-04**: Application is deployed to Railway with web app, API server, PostgreSQL, and Redis as separate services
+- [x] **INFRA-04**: Application is deployed to Railway with web app, API server, PostgreSQL, and Redis as separate services
 - [x] **INFRA-05**: Environment variables are documented in `.env.example`; secrets never committed
 
 ### Authentication (AUTH)
@@ -330,7 +330,7 @@
 | INFRA-01 | Phase 1 | Pending |
 | INFRA-02 | Phase 1 | Complete |
 | INFRA-03 | Phase 1 | Complete |
-| INFRA-04 | Phase 1 | Pending |
+| INFRA-04 | Phase 1 | Complete |
 | INFRA-05 | Phase 1 | Complete |
 | AUTH-01 | Phase 2 | Pending |
 | AUTH-02 | Phase 2 | Pending |
