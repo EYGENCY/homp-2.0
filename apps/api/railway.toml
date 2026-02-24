@@ -1,0 +1,15 @@
+[build]
+builder = "RAILPACK"
+# Build from repo root (shared monorepo — packages/config and packages/db must be resolvable)
+# Railpack auto-detects pnpm workspaces via pnpm-workspace.yaml and installs all dependencies
+buildCommand = "pnpm --filter api build"
+
+[deploy]
+# Run migrations BEFORE starting the new deployment to ensure schema is current
+# preDeployCommand runs in the deploy phase where env vars are available (not build phase)
+preDeployCommand = "pnpm --filter @homp/db migrate"
+startCommand = "node apps/api/dist/index.js"
+# /health endpoint verifies DB and Redis are reachable — Railway waits for 200 before routing traffic
+healthcheckPath = "/health"
+healthcheckTimeout = 60
+restartPolicyType = "ALWAYS"

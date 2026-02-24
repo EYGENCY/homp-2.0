@@ -1,0 +1,11 @@
+[build]
+builder = "RAILPACK"
+# Build from repo root (shared monorepo — @homp/config must be resolvable)
+buildCommand = "pnpm --filter web build"
+
+[deploy]
+startCommand = "pnpm --filter web start"
+# Railway uses the root path to check if the web app is serving
+healthcheckPath = "/"
+healthcheckTimeout = 60
+restartPolicyType = "ALWAYS"
