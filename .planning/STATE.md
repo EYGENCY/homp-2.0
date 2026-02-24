@@ -5,29 +5,29 @@
 See: .planning/PROJECT.md (updated 2026-02-18)
 
 **Core value:** Homeowners and community presidents can govern their community transparently — from raising ideas to collecting vendor offers to approving budgets to tracking projects — with every action logged, every vote counted by quota, and every euro traceable. The Settings engine is the constitutional brain.
-**Current focus:** Phase 1 — Infrastructure & Monorepo
+**Current focus:** Phase 2 — Authentication & User Management
 
 ## Current Position
 
-Phase: 1 of 13 (Infrastructure & Monorepo)
-Plan: 5 of 5 in current phase
-Status: Executing Phase 1
-Last activity: 2026-02-24 — Completed 01-04: Railway deployment config (railway.toml files)
+Phase: 1 of 13 (Infrastructure & Monorepo) — COMPLETE
+Next: Phase 2 (Authentication & User Management)
+Status: Phase 1 complete — ready to plan Phase 2
+Last activity: 2026-02-25 — Completed 01-05: Railway deployment verified (homp-api + homp-web live)
 
-Progress: [███░░░░░░░] 21%
+Progress: [████░░░░░░] 28%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 4
-- Average duration: 15min
-- Total execution time: 59min
+- Total plans completed: 5
+- Average duration: 39min (includes Railway/GitHub setup overhead in 01-05)
+- Total execution time: ~3hr (01-01 through 01-05)
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| 01-infrastructure-and-monorepo | 4/5 | 59min | 15min |
+| 01-infrastructure-and-monorepo | 5/5 | ~180min | ~36min |
 
 *Updated after each plan completion*
 
@@ -51,6 +51,8 @@ Key decisions affecting all phases:
 - apps/api startup DB check exits code 1 with clear error before accepting traffic — no silent failures
 - Railway: Railpack builder, no rootDirectory (repo root build), preDeployCommand runs drizzle migrate before each API deploy
 - Railway: Variable references ${{Postgres.DATABASE_URL}} and ${{Redis.REDIS_URL}} for credentials — no hardcoded values
+- **apps/api build uses esbuild (not tsc): bundles @homp/* workspace packages inline; --external:ioredis only (CJS dynamic require issue in ESM bundle)**
+- **drizzle-kit manual migration baseline: meta/_journal.json + meta/0000_snapshot.json must be committed alongside hand-written SQL**
 
 ### Key Constraints
 
@@ -61,14 +63,14 @@ Key decisions affecting all phases:
 
 ### Pending Todos
 
-None yet.
+None.
 
 ### Blockers/Concerns
 
-None yet.
+None.
 
 ## Session Continuity
 
-Last session: 2026-02-24
-Stopped at: Completed 01-04-PLAN.md — Railway deployment config (railway.toml for API and web)
+Last session: 2026-02-25
+Stopped at: Phase 1 complete — all 5 plans executed, Railway live, auto-deploy wired
 Resume file: None
