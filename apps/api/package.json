@@ -3,7 +3,7 @@
   "type": "module",
   "scripts": {
     "dev": "tsx --env-file=../../.env watch src/index.ts",
-    "build": "esbuild src/index.ts --bundle --format=esm --platform=node --outfile=dist/index.js --external:hono --external:@hono/node-server --external:ioredis --external:drizzle-orm --external:postgres --external:@t3-oss/env-core --external:@t3-oss/env-nextjs --external:zod",
+    "build": "esbuild src/index.ts --bundle --format=esm --platform=node --outfile=dist/index.js --external:ioredis",
     "start": "node dist/index.js"
   },
   "dependencies": {
