@@ -1,0 +1,22 @@
+{
+    "name": "@homp/db",
+    "version": "0.1.0",
+    "main": "./src/index.ts",
+    "types": "./src/index.ts",
+    "scripts": {
+        "generate": "drizzle-kit generate",
+        "migrate": "drizzle-kit migrate",
+        "push": "drizzle-kit push",
+        "studio": "drizzle-kit studio",
+        "db:reset": "docker compose -f ../../docker-compose.yml down -v postgres && docker compose -f ../../docker-compose.yml up -d postgres && sleep 3 && drizzle-kit migrate"
+    },
+    "dependencies": {
+        "drizzle-orm": "^0.45.1",
+        "postgres": "^3.4.3"
+    },
+    "devDependencies": {
+        "@types/node": "^20.19.33",
+        "drizzle-kit": "^0.31.9",
+        "typescript": "^5.3.3"
+    }
+}
