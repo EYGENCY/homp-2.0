@@ -42,7 +42,14 @@ HOMP 2.0 is built from the ground up as a multi-tenant HOA governance platform. 
   3. `drizzle-kit migrate` applies the initial schema against a fresh database without errors
   4. The application is accessible on Railway with web, API, PostgreSQL, and Redis running as separate services
   5. `.env.example` documents every required environment variable; no secrets appear in version control
-**Plans:** TBD
+**Plans:** 5 plans
+
+Plans:
+- [ ] 01-01-PLAN.md — Create @homp/config package with Zod-validated env schemas + .env.example and .gitignore
+- [ ] 01-02-PLAN.md — Docker compose health checks, Turbo env passthrough, Drizzle upgrade + baseline migration
+- [ ] 01-03-PLAN.md — Wire Hono API (/health endpoint, @homp/config) and Next.js (build-time env validation)
+- [ ] 01-04-PLAN.md — Create railway.toml files for API and web services
+- [ ] 01-05-PLAN.md — Commit, push to main, and verify Railway live deployment
 
 ### Phase 2: Community Model & Auth
 **Goal:** Users can register, log in, bind their account to a unit via Owner Code, and the platform enforces multi-tenant data isolation with correct quota math for every community.
@@ -193,7 +200,7 @@ HOMP 2.0 is built from the ground up as a multi-tenant HOA governance platform. 
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Infrastructure & Monorepo | 0/TBD | Not started | - |
+| 1. Infrastructure & Monorepo | 0/5 | Planned | - |
 | 2. Community Model & Auth | 0/TBD | Not started | - |
 | 3. Community Onboarding & Settings Engine | 0/TBD | Not started | - |
 | 4. Dashboard & Application Shell | 0/TBD | Not started | - |
