@@ -151,3 +151,20 @@ None — workspace deps auto-installed via pnpm. Live testing requires `docker c
 ---
 *Phase: 01-infrastructure-and-monorepo*
 *Completed: 2026-02-24*
+
+## Self-Check: PASSED
+
+All files verified present on disk:
+- apps/api/src/index.ts: FOUND
+- apps/api/package.json: FOUND
+- apps/api/tsconfig.json: FOUND
+- apps/web/next.config.ts: FOUND
+- apps/web/package.json: FOUND
+- packages/config/src/server.ts: FOUND
+- packages/config/package.json: FOUND
+- .planning/phases/01-infrastructure-and-monorepo/01-03-SUMMARY.md: FOUND
+
+All commits verified in git history:
+- 8c7d511 (Task 1: Hono API wired to @homp/config + @homp/db with /health): FOUND
+- 5376e9f (Task 2: Next.js web wired to @homp/config for build-time env validation): FOUND
+- e67b6cc (docs: plan metadata, SUMMARY, STATE, ROADMAP, REQUIREMENTS): FOUND
