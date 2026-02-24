@@ -10,24 +10,24 @@ See: .planning/PROJECT.md (updated 2026-02-18)
 ## Current Position
 
 Phase: 1 of 13 (Infrastructure & Monorepo)
-Plan: — of — in current phase
-Status: Ready to plan Phase 1
-Last activity: 2026-02-18 — Roadmap created
+Plan: 4 of 5 in current phase
+Status: Executing Phase 1
+Last activity: 2026-02-24 — Completed 01-03: Hono /health endpoint + Next.js env wiring
 
-Progress: [░░░░░░░░░░] 0%
+Progress: [██░░░░░░░░] 18%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 0
-- Average duration: —
-- Total execution time: —
+- Total plans completed: 3
+- Average duration: 19min
+- Total execution time: 56min
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| - | - | - | - |
+| 01-infrastructure-and-monorepo | 3/5 | 56min | 19min |
 
 *Updated after each plan completion*
 
@@ -43,6 +43,12 @@ Key decisions affecting all phases:
 - better-auth with Owner Code binding for multi-role sessions across Hono + Next.js
 - BullMQ + Redis for webhook delivery + meeting-locked vote window enforcement (server-side, not frontend)
 - Settings engine is per-community, versioned, forward-only, audit logged — built in Phase 3
+- JIT package pattern: @homp/* packages export TypeScript source directly (no build step) — tsx and Next.js transpile natively
+- Server/client env split: serverEnv (@t3-oss/env-core for Hono) and clientEnv (@t3-oss/env-nextjs for Next.js)
+- Drizzle upgraded to 0.45.1/0.31.9; uses postgres.js driver (not pg); defineConfig format with dialect: postgresql
+- globalPassThroughEnv in turbo.json for all 10 env vars — secrets flow without polluting Turbo cache hash
+- ioredis { Redis } named export required under NodeNext module resolution (default import has no construct signatures)
+- apps/api startup DB check exits code 1 with clear error before accepting traffic — no silent failures
 
 ### Key Constraints
 
@@ -61,6 +67,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-02-18
-Stopped at: Roadmap created — 13 phases, 187 requirements mapped, ready to plan Phase 1
+Last session: 2026-02-24
+Stopped at: Completed 01-03-PLAN.md — Hono /health endpoint + Next.js build-time env validation
 Resume file: None
